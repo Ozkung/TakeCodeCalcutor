@@ -16,7 +16,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TextField from "@mui/material/TextField";
 
 const columns = [
-  { id: "m_2", label: "Leverage", align: "center", minWidth: 170 },
+  { id: "lev", label: "Leverage", align: "center", minWidth: 170 },
   {
     id: "m_1",
     label: "Liquidation Wave (Maintain 2%)",
@@ -24,7 +24,7 @@ const columns = [
     minWidth: 100,
   },
   {
-    id: "lev",
+    id: "m_2",
     label: "Minimal Invest (0.4 / Hedge 0.8)",
     minWidth: 170,
     align: "center",
@@ -157,6 +157,7 @@ export default function Home() {
                           >
                             {columns.map((column, index) => {
                               const value = row[column.id];
+                              const lev = row.lev;
                               return (
                                 <StyledTableCell
                                   key={index}
@@ -164,6 +165,9 @@ export default function Home() {
                                 >
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
+                                    : column.id == "m_2" //แก้สูตรตรงนี้นะ
+                                    ? (parseFloat(lev.replace("x", "")) * 0.36) //แก้สูตรตรงนี้นะ
+                                        .toFixed(2) //แก้สูตรตรงนี้นะ
                                     : value}
                                 </StyledTableCell>
                               );
@@ -209,10 +213,11 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <div className={stylesist.my_2}>TS 5% - 0.1 (25%)</div>
+            <h3>Stop Market & Trailing Stop</h3>
+            <div className={stylesist.my_2}>TS 4.8% - 0.1 (25%)</div>
             <div className={stylesist.my_2}>TS 3% - 0.1 (25%)</div>
-            <div className={stylesist.my_2}>TS 2.3% - 0.1 (25%)</div>
-            <div className={stylesist.my_2}>TS 1.5% - 0.1 (25%)</div>
+            <div className={stylesist.my_2}>TS 0.2% - 0.1 (50%)</div>
+            {/* <div className={stylesist.my_2}>TS 1.5% - 0.1 (25%)</div> */}
           </div>
         </div>
         <div className={stylesist.d_flex}>
