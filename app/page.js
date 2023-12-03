@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 import TablePagination from "@mui/material/TablePagination";
 import TextField from "@mui/material/TextField";
 
+const liqiud = 0.36;
 const columns = [
   { id: "lev", label: "Leverage", align: "center", minWidth: 170 },
   {
@@ -25,7 +26,7 @@ const columns = [
   },
   {
     id: "m_2",
-    label: "Minimal Invest (0.4 / Hedge 0.8)",
+    label: `Minimal Invest (${liqiud} / Hedge 0.8)`,
     minWidth: 170,
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
@@ -166,7 +167,10 @@ export default function Home() {
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : column.id == "m_2" //แก้สูตรตรงนี้นะ
-                                    ? (parseFloat(lev.replace("x", "")) * 0.36) //แก้สูตรตรงนี้นะ
+                                    ? (
+                                        parseFloat(lev.replace("x", "")) *
+                                        liqiud
+                                      ) //แก้สูตรตรงนี้นะ
                                         .toFixed(2) //แก้สูตรตรงนี้นะ
                                     : value}
                                 </StyledTableCell>
